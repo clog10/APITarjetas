@@ -1,5 +1,7 @@
 package com.ibm.academia.restapi.tarjetas.servicios;
 
-public interface PassionDAO {
+import com.ibm.academia.restapi.tarjetas.modelo.entidades.Passion;
+
+public interface PassionDAO extends GenericoDAO<Passion>{
 
 }

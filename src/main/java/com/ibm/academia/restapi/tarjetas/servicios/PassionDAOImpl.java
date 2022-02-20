@@ -1,5 +1,17 @@
 package com.ibm.academia.restapi.tarjetas.servicios;
 
-public class PassionDAOImpl {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ibm.academia.restapi.tarjetas.modelo.entidades.Passion;
+import com.ibm.academia.restapi.tarjetas.repositorios.PassionRepository;
+
+@Service
+public class PassionDAOImpl extends GenericoDAOImpl<Passion, PassionRepository> implements PassionDAO{
+
+	@Autowired
+	public PassionDAOImpl(PassionRepository repository) {
+		super(repository);
+	}
 
 }

@@ -1,5 +1,7 @@
 package com.ibm.academia.restapi.tarjetas.servicios;
 
-public interface TarjetaDAO {
+import com.ibm.academia.restapi.tarjetas.modelo.entidades.Tarjeta;
+
+public interface TarjetaDAO extends GenericoDAO<Tarjeta>{
 
 }
