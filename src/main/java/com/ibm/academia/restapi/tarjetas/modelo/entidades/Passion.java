@@ -23,6 +23,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ibm.academia.restapi.tarjetas.enumeradores.TipoPassion;
 
 import lombok.Getter;
@@ -58,6 +59,7 @@ public class Passion implements Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "cliente_passion", joinColumns = @JoinColumn(name = "cliente_id"), inverseJoinColumns = @JoinColumn(name = "passion_id"))
+	@JsonIgnoreProperties({"passions"})
 	private Set<Cliente> clientes;
 
 	private static final long serialVersionUID = 5707410870482267720L;

@@ -9,8 +9,6 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,8 +34,6 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping("/restapi")
 public class TarjetaController {
-
-	private final static Logger logger = LoggerFactory.getLogger(TarjetaController.class);
 
 	@Autowired
 	private TarjetaDAO tarjetaDao;

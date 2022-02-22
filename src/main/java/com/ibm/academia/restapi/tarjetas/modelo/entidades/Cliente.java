@@ -81,6 +81,7 @@ public class Cliente implements Serializable {
 	private Set<Tarjeta> tarjetas;
 
 	@ManyToMany(mappedBy = "clientes", fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({"clientes"})
 	private Set<Passion> passions;
 
 	private static final long serialVersionUID = -1206550586722848951L;

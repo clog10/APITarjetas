@@ -133,7 +133,7 @@ public class ClienteController {
 	}
 
 	/**
-	 * Endpoint para asociar un clienta con una tarjeta
+	 * Endpoint para asociar un cliente con una tarjeta
 	 * 
 	 * @param clienteId
 	 * @param tarjetaId
@@ -145,5 +145,20 @@ public class ClienteController {
 		Cliente cliente = clienteDao.asociarTarjeta(clienteId, tarjetaId);
 		return new ResponseEntity<Cliente>(cliente, HttpStatus.OK);
 	}
+	
+	/**
+	 * Endpoint para asociar un cliente con una passion
+	 * 
+	 * @param clienteId
+	 * @param passionId
+	 * @return Retorna el cliente con su asociación
+	 * @author CJGL - 20-02-2022
+	 */
+	@PutMapping("/cliente/asociar-passion")
+	public ResponseEntity<?> asociarPassion(@RequestParam Long clienteId, @RequestParam Long passionId) {
+		Cliente cliente = clienteDao.asociarPassion(clienteId, passionId);
+		return new ResponseEntity<Cliente>(cliente, HttpStatus.OK);
+	}
+
 
 }

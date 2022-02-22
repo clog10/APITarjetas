@@ -1,14 +1,12 @@
 package com.ibm.academia.restapi.tarjetas.servicios;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ibm.academia.restapi.tarjetas.enumeradores.TipoPassion;
-import com.ibm.academia.restapi.tarjetas.excepciones.NotFoundException;
 import com.ibm.academia.restapi.tarjetas.modelo.entidades.Tarjeta;
 import com.ibm.academia.restapi.tarjetas.repositorios.TarjetaRepository;
 

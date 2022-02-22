@@ -4,4 +4,6 @@ import com.ibm.academia.restapi.tarjetas.modelo.entidades.Passion;
 
 public interface PassionDAO extends GenericoDAO<Passion>{
 
+	public Iterable<Passion> findPassionsByCliente(Long clienteId);
+	
 }

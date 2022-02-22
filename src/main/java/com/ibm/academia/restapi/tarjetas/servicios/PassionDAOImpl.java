@@ -14,4 +14,9 @@ public class PassionDAOImpl extends GenericoDAOImpl<Passion, PassionRepository> 
 		super(repository);
 	}
 
+	@Override
+	public Iterable<Passion> findPassionsByCliente(Long clienteId) {
+		return repository.findPassionsByCliente(clienteId);
+	}
+
 }

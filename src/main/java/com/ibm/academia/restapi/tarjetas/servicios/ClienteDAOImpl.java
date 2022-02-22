@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ibm.academia.restapi.tarjetas.excepciones.NotFoundException;
 import com.ibm.academia.restapi.tarjetas.modelo.entidades.Cliente;
+import com.ibm.academia.restapi.tarjetas.modelo.entidades.Passion;
 import com.ibm.academia.restapi.tarjetas.modelo.entidades.Tarjeta;
 import com.ibm.academia.restapi.tarjetas.repositorios.ClienteRepository;
 
@@ -19,6 +20,9 @@ public class ClienteDAOImpl extends GenericoDAOImpl<Cliente, ClienteRepository> 
 	
 	@Autowired
 	private TarjetaDAO tarjetaDao;
+	
+	@Autowired
+	private PassionDAO passionDao;
 
 	@Autowired
 	public ClienteDAOImpl(ClienteRepository repository) {
@@ -46,8 +50,36 @@ public class ClienteDAOImpl extends GenericoDAOImpl<Cliente, ClienteRepository> 
 	@Override
 	@Transactional
 	public Cliente asociarPassion(Long clienteId, Long passionId) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Cliente> oCliente = repository.findById(clienteId);
+		
+		if (!oCliente.isPresent())
+			throw new NotFoundException(String.format("El cliente con id: %d no existe", clienteId));
+
+		Optional<Passion> oPassion = passionDao.buscarPorId(passionId);
+		
+		if (!oPassion.isPresent())
+			throw new NotFoundException(String.format("La passion con id: %d no existe", passionId));
+		
+		Set<Passion> passions = new HashSet<Passion>();
+		Set<Cliente> clientes = new HashSet<Cliente>();
+		
+		List<Passion> passionsAsociadas = (List<Passion>) passionDao.findPassionsByCliente(clienteId);
+		
+		if(!passionsAsociadas.isEmpty()) {
+			passionsAsociadas.forEach(passion->{
+				passions.add(passion);
+			});
+		}
+		
+		passions.add(oPassion.get());
+		clientes.add(oCliente.get());
+		
+		oPassion.get().setClientes(clientes);
+		oCliente.get().setPassions(passions);
+		
+		passionDao.guardar(oPassion.get());
+		
+		return repository.save(oCliente.get());
 	}
 
 	@Override
