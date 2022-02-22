@@ -1,11 +1,14 @@
 package com.ibm.academia.restapi.tarjetas.servicios;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ibm.academia.restapi.tarjetas.enumeradores.TipoPassion;
+import com.ibm.academia.restapi.tarjetas.excepciones.NotFoundException;
 import com.ibm.academia.restapi.tarjetas.modelo.entidades.Tarjeta;
 import com.ibm.academia.restapi.tarjetas.repositorios.TarjetaRepository;
 
@@ -16,7 +19,15 @@ public class TarjetaDAOImpl extends GenericoDAOImpl<Tarjeta, TarjetaRepository> 
 	public TarjetaDAOImpl(TarjetaRepository repository) {
 		super(repository);
 	}
+	
 
+	@Override
+	@Transactional(readOnly = true)
+	public Iterable<Tarjeta> findTarjetasByClienteId(Long clienteId) {
+		return repository.findTarjetasByClienteId(clienteId);
+	}
+	
+	
 	@Override
 	public String obtenerTipoTarjeta(TipoPassion passion, BigDecimal salario, Integer edad) {
 		String tipo = "";
@@ -249,4 +260,5 @@ public class TarjetaDAOImpl extends GenericoDAOImpl<Tarjeta, TarjetaRepository> 
 		}
 		return tipo;
 	}
+
 }

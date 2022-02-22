@@ -20,6 +20,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.ibm.academia.restapi.tarjetas.enumeradores.TipoPassion;
 
@@ -38,10 +40,13 @@ public class Passion implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotNull(message = "No puede ser nulo")
 	@Column(name = "tipo_passion")
 	@Enumerated(EnumType.STRING)
 	private TipoPassion tipoPassion;
 
+	@NotNull(message = "No puede ser nulo")
+	@NotEmpty(message = "No puede ser vacío")
 	@Column(name = "usuario_creacion", nullable = false)
 	private String usuarioCreacion;
 

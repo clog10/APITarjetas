@@ -8,4 +8,6 @@ import com.ibm.academia.restapi.tarjetas.modelo.entidades.Tarjeta;
 @Repository
 public interface TarjetaRepository extends CrudRepository<Tarjeta, Long> {
 
+	public Iterable<Tarjeta> findTarjetasByClienteId(Long clienteId);
+	
 }

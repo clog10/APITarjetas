@@ -15,6 +15,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,13 +35,18 @@ public class Tarjeta {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotNull(message = "No puede ser nulo")
+	@NotEmpty(message = "No puede ser vacío")
 	@Column(name = "tipo_tarjeta", nullable = false)
 	private String tipoTarjeta;
 
 	@ManyToOne(optional = true, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "cliente_id", foreignKey = @ForeignKey(name = "FK_CLIENTE_ID"))
+	@JsonIgnoreProperties({"tarjetas"})
 	private Cliente cliente;
 
+	@NotNull(message = "No puede ser nulo")
+	@NotEmpty(message = "No puede ser vacío")
 	@Column(name = "usuario_creacion", nullable = false)
 	private String usuarioCreacion;
 

@@ -17,6 +17,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,21 +39,34 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotNull(message = "No puede ser nulo")
+	@NotEmpty(message = "No puede ser vacío")
 	@Column(name = "nombre", nullable = false, length = 60)
 	private String nombre;
 
+	@NotNull(message = "No puede ser nulo")
+	@NotEmpty(message = "No puede ser vacío")
 	@Column(name = "apellido", nullable = false, length = 60)
 	private String apellido;
 
+	@NotNull(message = "No puede ser nulo")
+	@NotEmpty(message = "No puede ser vacío")
 	@Column(name = "dni", nullable = false, unique = true, length = 10)
 	private String dni;
 
+	@Positive(message = "El valor debe ser mayor a 0")
+	@Min(18)
+	@NotNull(message = "No puede ser nulo")
 	@Column(name = "edad", nullable = false)
 	private Integer edad;
 
+	@Positive(message = "El valor debe ser mayor a 0")
+	@NotNull(message = "No puede ser nulo")
 	@Column(name = "sueldo_mensual", nullable = false)
 	private BigDecimal sueldoMensual;
 
+	@NotNull(message = "No puede ser nulo")
+	@NotEmpty(message = "No puede ser vacío")
 	@Column(name = "usuario_creacion", nullable = false)
 	private String usuarioCreacion;
 
@@ -58,6 +77,7 @@ public class Cliente implements Serializable {
 	private Date fechaModificacion;
 
 	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({"cliente"})
 	private Set<Tarjeta> tarjetas;
 
 	@ManyToMany(mappedBy = "clientes", fetch = FetchType.LAZY)
