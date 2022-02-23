@@ -1,6 +1,7 @@
 package com.ibm.academia.restapi.tarjetas.servicios;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,18 +12,50 @@ import com.ibm.academia.restapi.tarjetas.modelo.entidades.Tarjeta;
 import com.ibm.academia.restapi.tarjetas.repositorios.TarjetaRepository;
 
 @Service
-public class TarjetaDAOImpl extends GenericoDAOImpl<Tarjeta, TarjetaRepository> implements TarjetaDAO {
+public class TarjetaDAOImpl implements TarjetaDAO {
+
+	private TarjetaRepository tarjetaRepository;
 
 	@Autowired
-	public TarjetaDAOImpl(TarjetaRepository repository) {
-		super(repository);
+	public TarjetaDAOImpl(TarjetaRepository tarjetaRepository) {
+		this.tarjetaRepository = tarjetaRepository;
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Optional<Tarjeta> buscarPorId(Long id) {
+		return tarjetaRepository.findById(id);
+	}
+
+	@Override
+	@Transactional
+	public Tarjeta guardar(Tarjeta tarjeta) {
+		return tarjetaRepository.save(tarjeta);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Iterable<Tarjeta> buscarTodos() {
+		return tarjetaRepository.findAll();
+	}
+
+	@Override
+	@Transactional
+	public void eliminarPorId(Long id) {
+		tarjetaRepository.deleteById(id);
+	}
+
+	@Override
+	@Transactional
+	public Iterable<Tarjeta> guardarVarios(Iterable<Tarjeta> tarjetas) {
+		return tarjetaRepository.saveAll(tarjetas);
 	}
 	
 
 	@Override
 	@Transactional(readOnly = true)
 	public Iterable<Tarjeta> findTarjetasByClienteId(Long clienteId) {
-		return repository.findTarjetasByClienteId(clienteId);
+		return tarjetaRepository.findTarjetasByClienteId(clienteId);
 	}
 	
 	
